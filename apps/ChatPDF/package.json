@@ -1,0 +1,14 @@
+{
+  "name": "chatpdf",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev:css": "npx tailwindcss -i ./wwwroot/styles/global.css -o ./wwwroot/styles/global.min.css --watch",
+    "build:css": "npx tailwindcss -i ./wwwroot/styles/global.css -o ./wwwroot/styles/global.min.css --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+  }
+}

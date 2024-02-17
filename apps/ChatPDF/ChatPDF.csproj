@@ -14,9 +14,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
+
+    <Target Name="TailwindCSSDevelop" BeforeTargets="Build" Condition="'$(IsProduction)' == 'false'">
+        <Exec Command="npm run dev:css"/>
+    </Target>
+    <Target Name="TailwindCSSBuild" BeforeTargets="Build" Condition="'$(IsProduction)' == 'true'">
+        <Exec Command="npm run build:css"/>
+    </Target>
+
 
 </Project>
