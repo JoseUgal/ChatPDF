@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>Codefastly.ChatPDF.Persistence</AssemblyName>
+        <RootNamespace>Codefastly.ChatPDF.Persistence</RootNamespace>
+        <PackageId>Codefastly.ChatPDF.Persistence</PackageId>
+        <Authors>Codefastly.ChatPDF.Persistence</Authors>
+        <Company>Codefastly.ChatPDF.Persistence</Company>
+        <Product>Codefastly.ChatPDF.Persistence</Product>
+    </PropertyGroup>
+
+</Project>
