@@ -19,6 +19,17 @@
         </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\ChatPDF.Persistence\ChatPDF.Persistence.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
     <Target Name="TailwindCSSDevelop" BeforeTargets="Build" Condition="'$(IsProduction)' == 'false'">
         <Exec Command="npm run dev:css"/>
     </Target>

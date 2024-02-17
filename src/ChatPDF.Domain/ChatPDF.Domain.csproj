@@ -12,8 +12,4 @@
         <Product>Codefastly.ChatPDF.Domain</Product>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Primitives\" />
-    </ItemGroup>
-
 </Project>

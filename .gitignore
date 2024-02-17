@@ -3,5 +3,9 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+
+# JetBrains Rider
 .idea/
+
+# Styles
 apps/ChatPDF/wwwroot/styles/global.min.css
