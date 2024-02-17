@@ -12,8 +12,8 @@ public class MemberConfiguration : IEntityTypeConfiguration<Member>
 
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.FirstNam);
-        
+        builder.Property(x => x.FirstName);
+
         builder.Property(x => x.LastName);
 
         builder.Property(x => x.Email);

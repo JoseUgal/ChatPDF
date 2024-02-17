@@ -12,4 +12,8 @@
         <Product>Codefastly.ChatPDF.Application</Product>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ChatPDF.Domain\ChatPDF.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -20,13 +20,13 @@ public sealed class Member : Entity
             // TODO: Raise domain event
         }
 
-        FirstNam = firstName;
+        FirstName = firstName;
         LastName = lastName;
     }
 
     public string Email { get; }
 
-    public string FirstNam { get; private set; }
+    public string FirstName { get; private set; }
 
     public string LastName { get; private set; }
 
@@ -35,7 +35,7 @@ public sealed class Member : Entity
     private Member(Guid id, string email, string firstName, string lastName) : base(id)
     {
         Email = email;
-        FirstNam = firstName;
+        FirstName = firstName;
         LastName = lastName;
     }
 }

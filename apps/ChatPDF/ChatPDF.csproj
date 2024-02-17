@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\src\ChatPDF.Application\ChatPDF.Application.csproj" />
       <ProjectReference Include="..\..\src\ChatPDF.Persistence\ChatPDF.Persistence.csproj" />
     </ItemGroup>
 
