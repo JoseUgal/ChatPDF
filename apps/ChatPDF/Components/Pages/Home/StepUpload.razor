@@ -1,0 +1,46 @@
+@rendermode InteractiveServer
+
+@if (error is not null)
+{
+    <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+        <span class="font-medium">@error.Code</span>
+        @error.Message
+    </div>
+}
+
+<div class="text-center">
+    <InputFile
+        OnChange="@HandleFileSelected"
+        multiple="false"
+        accept=".pdf"/>
+</div>
+
+@code {
+    private const long MaxFileSize = 25 * 1024 * 1024; // 25MB
+
+    private Domain.Shared.Error? error;
+
+    private Task HandleFileSelected(InputFileChangeEventArgs evt)
+    {
+        var file = evt.File;
+
+        if (file.Size > MaxFileSize)
+        {
+            error = new Domain.Shared.Error(
+                "¡Archivo demasiado grande!",
+                $"El tamaño máximo permitido es de {MaxFileSize / 1024 / 1024}MB."
+            );
+
+            return Task.CompletedTask;
+        }
+
+        using var stream = file.OpenReadStream(MaxFileSize);
+
+        Console.WriteLine($"Archivo seleccionado: {file.Name}");
+
+        return Task.CompletedTask;
+    }
+
+    private sealed record Error(string Code, string Message);
+
+}
