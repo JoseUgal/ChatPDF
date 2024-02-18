@@ -1,6 +1,7 @@
 using Codefastly.ChatPDF.Domain.Entities;
 using Codefastly.ChatPDF.Domain.Errors;
 using Codefastly.ChatPDF.Domain.Repositories;
+using Codefastly.ChatPDF.Domain.Shared;
 
 namespace Codefastly.ChatPDF.Application.Services;
 
@@ -15,22 +16,27 @@ public class MemberService(IMemberRepository memberRepository, IUnitOfWork unitO
         return members;
     }
 
-    public async Task CreateMember(
+    public async Task<Result> CreateMember(
         Guid id, string email, string firstName, string lastName,
         CancellationToken cancellationToken = default
     )
     {
         if (!await memberRepository.IsEmailUniqueAsync(email, cancellationToken))
         {
-            var error = DomainErrors.Member.EmailAlreadyInUse;
-
-            throw new ArgumentException(error.Message, error.Code);
+            return Result.Failure(DomainErrors.Member.EmailAlreadyInUse);
         }
 
-        var member = Member.Create(id, email, firstName, lastName);
+        var memberResult = Member.Create(id, email, firstName, lastName);
 
-        memberRepository.Add(member);
+        if (memberResult.IsFailure)
+        {
+            return Result.Failure(memberResult.Error);
+        }
+
+        memberRepository.Add(memberResult.Value);
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result.Success();
     }
 }

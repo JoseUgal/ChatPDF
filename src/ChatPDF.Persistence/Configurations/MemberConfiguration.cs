@@ -12,11 +12,17 @@ public class MemberConfiguration : IEntityTypeConfiguration<Member>
 
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.FirstName);
+        builder.Property(x => x.FirstName)
+            .HasMaxLength(Member.FirstNameMaxLength)
+            .IsRequired();
 
-        builder.Property(x => x.LastName);
+        builder.Property(x => x.LastName)
+            .HasMaxLength(Member.LastNameMaxLength)
+            .IsRequired();
 
-        builder.Property(x => x.Email);
+        builder.Property(x => x.Email)
+            .HasMaxLength(Member.EmailMaxLength)
+            .IsRequired();
 
         builder.HasIndex(x => x.Email).IsUnique();
     }
