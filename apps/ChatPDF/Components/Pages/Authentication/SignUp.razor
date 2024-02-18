@@ -1,0 +1,92 @@
+@page "/authentication/signup"
+
+@using Codefastly.ChatPDF.Application.Services
+@using Codefastly.ChatPDF.Domain.Shared
+
+@inject MemberService MemberService
+@inject NavigationManager NavigationManager
+
+
+<form method="post" @onsubmit="HandleSubmit" @formname="signUp" class="space-y-4">
+    <AntiforgeryToken />
+    
+    <div>
+        <label for="email">Email</label>
+        <InputText
+            @bind-Value="Model!.Email"
+            type="email"
+            id="email"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder=""
+            required/>
+    </div>
+
+    <div>
+        <label for="firstName">First Name</label>
+        <InputText
+            @bind-Value="Model!.FirstName"
+            type="text"
+            id="firstName"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder=""
+            required/>
+    </div>
+
+    <div>
+        <label for="lastName">Last Name</label>
+        <InputText
+            @bind-Value="Model!.LastName"
+            type="text"
+            id="lastName"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder=""
+            required/>
+    </div>
+
+    <button type="submit" class="bg-blue-600 border border-gray-300 text-white text-sm rounded-lg px-4 py-2 w-full">
+        Register
+    </button>
+</form>
+
+@if (error is not null)
+{
+    <div class="mt-10 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+        <span class="font-medium">@error.Code</span>
+        @error.Message
+    </div>
+}
+
+@code {
+
+    [SupplyParameterFromForm] public FormModel? Model { get; set; }
+
+    private Error? error;
+
+
+    protected override void OnInitialized() => Model ??= new();
+
+    private async Task HandleSubmit()
+    {
+        var result = await MemberService.CreateMember(Guid.NewGuid(), Model!.Email, Model!.FirstName, Model!.LastName);
+
+        if (result.IsFailure)
+        {
+            error = result.Error;
+
+            return;
+        }
+
+        NavigationManager.NavigateTo("/members");
+    }
+
+
+    public class FormModel
+    {
+        public string Email { get; set; } = string.Empty;
+
+        public string FirstName { get; set; } = string.Empty;
+
+        public string LastName { get; set; } = string.Empty;
+    }
+
+}
